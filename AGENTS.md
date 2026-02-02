@@ -19,7 +19,7 @@ All contributions must follow the conventions and principles below.
 
 - Framework: **Next.js (App Router)**
 - Language: **TypeScript (strict)**
-- Runtime & package manager: **Bun**
+- Runtime & package manager: **Node.js + npm**
 - Styling: **Tailwind CSS** with CSS variable design tokens
 - UI primitives: **shadcn/ui** (Base UI-based)
 - Forms: **React Hook Form + Zod**
@@ -30,14 +30,14 @@ All contributions must follow the conventions and principles below.
 
 ---
 
-## Runtime & package management (Bun)
+## Runtime & package management (npm)
 
-- Use **Bun only** for:
+- Use **npm only** for:
   - installing dependencies
   - running scripts
   - managing the lockfile
-- Commit `bun.lockb`.
-- Do NOT use `npm`, `pnpm`, or `yarn`.
+- Commit `package-lock.json`.
+- Do NOT use `bun`, `pnpm`, or `yarn`.
 
 ---
 
@@ -226,12 +226,12 @@ When implementing a feature or change:
 
 ## Commands
 
-- Dev: `bun dev`
-- Build: `bun run build`
-- Lint: `bun run lint`
-- Typecheck: `bun run typecheck`
-- Test: `bun run test`
-- E2E: `bun run e2e`
+- Dev: `npm run dev`
+- Build: `npm run build`
+- Lint: `npm run lint`
+- Typecheck: `npm run typecheck`
+- Test: `npm run test`
+- E2E: `npm run e2e`
 
 ---
 

@@ -1,6 +1,7 @@
 "use client"
 
 import * as React from "react"
+import { useTheme } from "next-themes"
 
 import {
   Example,
@@ -149,7 +150,14 @@ function FormExample() {
     sms: false,
     push: true,
   })
-  const [theme, setTheme] = React.useState("light")
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
+
+  React.useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  const activeTheme = mounted ? theme : "light"
 
   return (
     <Example title="Form">
@@ -288,7 +296,7 @@ function FormExample() {
                         <DropdownMenuGroup>
                           <DropdownMenuLabel>Appearance</DropdownMenuLabel>
                           <DropdownMenuRadioGroup
-                            value={theme}
+                            value={activeTheme}
                             onValueChange={setTheme}
                           >
                             <DropdownMenuRadioItem value="light">

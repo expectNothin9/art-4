@@ -1,5 +1,12 @@
-import { ComponentExample } from "@/components/component-example";
+import { WindIcon } from "@/components/ui/wind";
 
 export default function Page() {
-return <ComponentExample />;
+  return (
+    <main className="flex items-center justify-center h-screen">
+      <h1 className="text-4xl font-bold">
+        ART 4
+        <WindIcon />
+      </h1>
+    </main>
+  );
 }

@@ -1,7 +1,7 @@
 import { WindIcon } from "@/components/ui/wind";
 import { getTranslations } from "next-intl/server";
 
-export default async function Page() {
+export default async function HomePage() {
   const t = await getTranslations("home");
 
   return (

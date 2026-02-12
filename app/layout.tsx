@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale, getMessages } from "next-intl/server";
 import "./globals.css";
+import { ConvexClientProvider } from "./convex-client-provider";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -38,7 +39,7 @@ export default async function RootLayout({
           "min-h-screen bg-background font-sans antialiased",
           inter.variable,
           geistSans.variable,
-          geistMono.variable
+          geistMono.variable,
         )}
       >
         <NextIntlClientProvider messages={messages}>
@@ -48,7 +49,7 @@ export default async function RootLayout({
             enableSystem
             disableTransitionOnChange
           >
-            {children}
+            <ConvexClientProvider>{children}</ConvexClientProvider>
           </ThemeProvider>
         </NextIntlClientProvider>
       </body>

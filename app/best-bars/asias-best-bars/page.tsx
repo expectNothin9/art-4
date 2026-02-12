@@ -1,6 +1,8 @@
-import { Best50Container } from "@/features/best-50/best-50-container";
+import { getAsiasBestBars } from "@/actions/bars/query";
+import { BestBarsTable } from "@/features/best-bars/best-bars-table";
 
-export default function Best50Page() {
+export default async function AsiasBestBarsPage() {
+  const data = await getAsiasBestBars();
   return (
     <main className="mx-auto max-w-5xl space-y-6 px-6 py-12">
       <header className="space-y-3">
@@ -15,7 +17,7 @@ export default function Best50Page() {
           server-rendered table.
         </p>
       </header>
-      <Best50Container />
+      <BestBarsTable data={data} />
     </main>
   );
 }

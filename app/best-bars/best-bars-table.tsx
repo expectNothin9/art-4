@@ -1,10 +1,10 @@
-import { BestBar } from "./best-50-data";
+import type { BestBar } from "@/actions/bars/type";
 
-type Best50TableProps = {
+type BestBarsTableProps = {
   data: BestBar[];
 };
 
-export function Best50Table({ data }: Best50TableProps) {
+export function BestBarsTable({ data }: BestBarsTableProps) {
   return (
     <div className="overflow-x-auto rounded-lg border border-border">
       <table className="w-full border-collapse text-sm">
@@ -19,9 +19,6 @@ export function Best50Table({ data }: Best50TableProps) {
             <th className="px-4 py-3 font-semibold text-muted-foreground">
               City
             </th>
-            <th className="px-4 py-3 font-semibold text-muted-foreground">
-              Country
-            </th>
           </tr>
         </thead>
         <tbody>
@@ -33,7 +30,6 @@ export function Best50Table({ data }: Best50TableProps) {
               <td className="px-4 py-3 font-medium">{bar.rank}</td>
               <td className="px-4 py-3">{bar.name}</td>
               <td className="px-4 py-3">{bar.city}</td>
-              <td className="px-4 py-3">{bar.country}</td>
             </tr>
           ))}
         </tbody>

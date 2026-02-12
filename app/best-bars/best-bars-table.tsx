@@ -1,4 +1,4 @@
-import type { BestBar } from "@/actions/bars/type";
+import type { BestBar } from "@/actions/best-bars/type";
 
 type BestBarsTableProps = {
   data: BestBar[];

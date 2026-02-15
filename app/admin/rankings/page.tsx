@@ -4,11 +4,11 @@ import Link from "next/link";
 import { useQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import { Button } from "@/components/ui/button";
-import { Copy } from "lucide-react";
+import { Copy, Plus } from "lucide-react";
 import type { Id } from "@/convex/_generated/dataModel";
 
 export default function AdminRankingsPage() {
-  const rankings = useQuery(api.rankings.get);
+  const rankings = useQuery(api.rankings.getRankings);
 
   const copyId = (id: Id<"rankings">) => {
     void navigator.clipboard.writeText(id);
@@ -18,7 +18,10 @@ export default function AdminRankingsPage() {
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
       <div className="flex w-full max-w-2xl flex-col gap-4">
         <Link href="/admin/rankings/create">
-          <Button>New</Button>
+          <Button>
+            <Plus />
+            Create a new ranking
+          </Button>
         </Link>
         <div className="overflow-x-auto rounded-lg border border-border">
           <table className="w-full border-collapse text-sm">
@@ -32,6 +35,9 @@ export default function AdminRankingsPage() {
                 </th>
                 <th className="px-4 py-3 font-semibold text-muted-foreground">
                   Year
+                </th>
+                <th className="px-4 py-3 font-semibold text-muted-foreground">
+                  Entries
                 </th>
               </tr>
             </thead>
@@ -56,6 +62,14 @@ export default function AdminRankingsPage() {
                   </td>
                   <td className="px-4 py-3 font-medium">{title}</td>
                   <td className="px-4 py-3">{year}</td>
+                  <td className="px-4 py-3">
+                    <Link
+                      href={`/admin/rankings/${_id}/ranking-entries`}
+                      className="text-primary underline underline-offset-4 hover:no-underline"
+                    >
+                      View
+                    </Link>
+                  </td>
                 </tr>
               ))}
             </tbody>

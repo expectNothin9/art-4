@@ -1,10 +1,17 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
 
-export const get = query({
+export const getRankings = query({
   args: {},
   handler: async (ctx) => {
     return await ctx.db.query("rankings").collect();
+  },
+});
+
+export const getRankingById = query({
+  args: { id: v.id("rankings") },
+  handler: async (ctx, { id }) => {
+    return await ctx.db.get(id);
   },
 });
 

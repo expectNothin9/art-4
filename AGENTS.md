@@ -24,6 +24,7 @@ All contributions must follow the conventions and principles below.
 - UI primitives: **shadcn/ui** (Base UI-based)
 - Forms: **React Hook Form + Zod**
 - Tables: **TanStack Table**
+- Data: **Convex**
 - Testing:
   - Unit: **Vitest**
   - E2E: **Playwright**
@@ -153,6 +154,26 @@ user-settings/
 
 - Centralize reusable fetch logic in `lib/` or `server/`.
 - Handle error states explicitly.
+
+### Convex SSR (preferred when possible)
+
+Use Convex SSR instead of client-side `useQuery` when the page can be server-rendered:
+
+1. **Page (Server Component)**: Call `preloadQuery(api.module.queryName, args)` and pass the result as props.
+2. **Client component**: Accept `Preloaded<typeof api.module.queryName>` and use `usePreloadedQuery(preloaded)` to consume.
+
+Benefits: initial HTML includes data (no loading spinner), better SEO, faster perceived load.
+
+```tsx
+// page.tsx (server)
+const preloaded = await preloadQuery(api.rankings.getRankings);
+return <AdminRankings preloadedRankings={preloaded} />;
+
+// admin-rankings.tsx (client)
+const data = usePreloadedQuery(props.preloadedRankings);
+```
+
+Use `useQuery` only when preloading is not feasible (e.g. dynamic args from client-only context, real-time subscriptions that must stay client-driven).
 
 ---
 

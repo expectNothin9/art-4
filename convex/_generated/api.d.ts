@@ -9,6 +9,7 @@
  */
 
 import type * as bars from "../bars.js";
+import type * as rankings from "../rankings.js";
 
 import type {
   ApiFromModules,
@@ -18,6 +19,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   bars: typeof bars;
+  rankings: typeof rankings;
 }>;
 
 /**

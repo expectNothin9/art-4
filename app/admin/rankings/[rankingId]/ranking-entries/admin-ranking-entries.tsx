@@ -3,6 +3,8 @@
 import { Preloaded, usePreloadedQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import Link from "next/link";
+import { buttonVariants } from "@/components/ui/button";
+import { ArrowLeftIcon } from "lucide-react";
 
 export default function AdminRankingEntries(props: {
   preloadedRanking: Preloaded<typeof api.rankings.getRankingById>;
@@ -17,8 +19,11 @@ export default function AdminRankingEntries(props: {
     return (
       <div className="flex w-full max-w-2xl flex-col gap-4">
         <p className="text-destructive">Ranking not found</p>
-        <Link href="/admin/rankings" className="text-primary underline">
-          Back to rankings
+        <Link
+          href="/admin/rankings"
+          className={buttonVariants({ variant: "outline", size: "sm" })}
+        >
+          <ArrowLeftIcon className="size-4" /> Back to rankings
         </Link>
       </div>
     );
@@ -29,9 +34,9 @@ export default function AdminRankingEntries(props: {
       <div className="flex items-center gap-4">
         <Link
           href="/admin/rankings"
-          className="text-primary underline underline-offset-4 hover:no-underline"
+          className={buttonVariants({ variant: "outline", size: "sm" })}
         >
-          ← Back
+          <ArrowLeftIcon className="size-4" /> Back
         </Link>
         <h1 className="text-lg font-semibold">
           {ranking.title} ({ranking.year})

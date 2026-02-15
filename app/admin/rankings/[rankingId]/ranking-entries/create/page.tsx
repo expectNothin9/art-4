@@ -1,9 +1,9 @@
 import { preloadQuery } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
 import type { Id } from "@/convex/_generated/dataModel";
-import AdminRankingEntries from "./admin-ranking-entries";
+import RankingEntriesCreate from "./ranking-entries-create";
 
-export default async function AdminRankingEntriesPage({
+export default async function RankingEntriesCreatePage({
   params,
 }: {
   params: Promise<{ rankingId: string }>;
@@ -14,18 +14,12 @@ export default async function AdminRankingEntriesPage({
   const preloadedRanking = await preloadQuery(api.rankings.getRankingById, {
     id,
   });
-  const preloadedEntries = await preloadQuery(
-    api.rankingEntries.getRankingEntriesByRankingId,
-    {
-      rankingId: id,
-    },
-  );
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <AdminRankingEntries
+      <RankingEntriesCreate
         preloadedRanking={preloadedRanking}
-        preloadedEntries={preloadedEntries}
+        rankingId={id}
       />
     </main>
   );

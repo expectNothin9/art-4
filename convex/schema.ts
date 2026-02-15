@@ -9,6 +9,7 @@ export default defineSchema({
     city: v.string(),
     country: v.string(),
   })
+    .index("by_key", ["key"])
     // 常見查詢：用名稱搜尋、或依地區篩
     .index("by_name", ["name"])
     .index("by_country_city", ["country", "city"]),

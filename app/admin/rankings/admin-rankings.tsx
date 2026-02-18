@@ -65,7 +65,7 @@ export default function AdminRankings(props: {
                 <td className="px-4 py-3">{year}</td>
                 <td className="px-4 py-3">
                   <Link
-                    href={`/admin/rankings/${_id}/ranking-entries`}
+                    href={`/admin/rankings/${_id}`}
                     className="text-primary underline underline-offset-4 hover:no-underline"
                   >
                     View

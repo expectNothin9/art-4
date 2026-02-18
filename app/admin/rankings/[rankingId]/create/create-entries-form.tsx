@@ -59,7 +59,7 @@ export default function CreateEntriesForm(props: {
         rankingId: props.rankingId,
         entries: result.entries,
       });
-      router.push(`/admin/rankings/${props.rankingId}/ranking-entries`);
+      router.push(`/admin/rankings/${props.rankingId}`);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to create entries");
     }
@@ -95,9 +95,7 @@ export default function CreateEntriesForm(props: {
           <Button
             type="button"
             variant="outline"
-            onClick={() =>
-              router.push(`/admin/rankings/${props.rankingId}/ranking-entries`)
-            }
+            onClick={() => router.push(`/admin/rankings/${props.rankingId}`)}
           >
             Cancel
           </Button>

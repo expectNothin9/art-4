@@ -3,9 +3,6 @@
 import { Preloaded, usePreloadedQuery } from "convex/react";
 import { api } from "@/convex/_generated/api";
 import type { Id } from "@/convex/_generated/dataModel";
-import Link from "next/link";
-import { buttonVariants } from "@/components/ui/button";
-import { ArrowLeftIcon } from "lucide-react";
 import CreateEntriesForm from "./create-entries-form";
 
 export default function RankingEntriesCreate(props: {
@@ -17,12 +14,6 @@ export default function RankingEntriesCreate(props: {
 
   return (
     <div className="flex w-full max-w-2xl flex-col gap-4">
-      <Link
-        href={`/admin/rankings/${rankingId}/ranking-entries`}
-        className={buttonVariants({ variant: "outline", size: "sm" })}
-      >
-        <ArrowLeftIcon className="size-4" /> Back
-      </Link>
       {/**
        * TODO: update to two ways to create entries:
        * 1. Upload a JSONL file

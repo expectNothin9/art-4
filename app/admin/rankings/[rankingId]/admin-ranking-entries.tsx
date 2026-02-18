@@ -39,7 +39,7 @@ export default function AdminRankingEntries(props: {
           <ArrowLeftIcon className="size-4" /> Back
         </Link>
         <Link
-          href={`/admin/rankings/${ranking._id}/ranking-entries/create`}
+          href={`/admin/rankings/${ranking._id}/create`}
           className={buttonVariants({ variant: "default", size: "sm" })}
         >
           Create new entries

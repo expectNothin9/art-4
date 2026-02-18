@@ -23,7 +23,7 @@ export function Breadcrumbs({ ranking }: { ranking: Doc<"rankings"> | null }) {
         <BreadcrumbItem>
           {ranking && (
             <BreadcrumbLink href={`/admin/rankings/${ranking._id}`}>
-              {ranking.title}
+              {ranking.title} ({ranking.year})
             </BreadcrumbLink>
           )}
         </BreadcrumbItem>

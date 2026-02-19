@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { z } from "zod";
 
 import { api } from "@/convex/_generated/api";
+import { nameToKey } from "@/lib/slugify";
 import { Button } from "@/components/ui/button";
 import { Field, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
@@ -33,7 +34,11 @@ export default function AdminRankingsCreatePage() {
     }
 
     try {
-      await createRanking({ title: result.data.title, year: result.data.year });
+      await createRanking({
+        key: nameToKey(result.data.title),
+        title: result.data.title,
+        year: result.data.year,
+      });
       router.push("/admin/rankings");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Failed to create ranking");

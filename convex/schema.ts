@@ -15,10 +15,12 @@ export default defineSchema({
     .index("by_country_city", ["country", "city"]),
 
   rankings: defineTable({
+    key: v.string(), // slug from title, e.g. "asias-50-best-bars"
     // e.g. "Asia's 50 Best Bars"
     title: v.string(),
     year: v.number(), // e.g. 2025
   })
+    .index("by_key", ["key"])
     // 讓你用 (title, year) 快速拿到那份榜單
     .index("by_title_year", ["title", "year"]),
 

@@ -1,7 +1,8 @@
 import { preloadQuery, preloadedQueryResult } from "convex/nextjs";
 import { notFound } from "next/navigation";
 import { api } from "@/convex/_generated/api";
-import { RankingDetail } from "./ranking-detail";
+import { RankingEntriesTable } from "./ranking-entries-table";
+import { Breadcrumbs } from "./breadcrumbs";
 
 export default async function RankingByKeyPage({
   params,
@@ -23,9 +24,12 @@ export default async function RankingByKeyPage({
   );
 
   return (
-    <RankingDetail
-      preloadedRanking={preloadedRanking}
-      preloadedEntries={preloadedEntries}
-    />
+    <main className="mx-auto max-w-5xl space-y-6 px-6 py-12">
+      <Breadcrumbs ranking={ranking} />
+      <RankingEntriesTable
+        preloadedRanking={preloadedRanking}
+        preloadedEntries={preloadedEntries}
+      />
+    </main>
   );
 }

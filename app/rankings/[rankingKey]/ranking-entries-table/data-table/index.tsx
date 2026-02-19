@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import {
-  type ColumnDef,
   type ColumnFiltersState,
   flexRender,
   getCoreRowModel,
@@ -10,16 +9,21 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import type { Id } from "@/convex/_generated/dataModel";
-import { Input } from "@/components/ui/input";
+import { RankingEntriesFilters } from "./filters";
+import type { RankingEntry } from "./types";
+import { cn } from "@/lib/utils";
+import { ArrowDownIcon, ArrowUpIcon } from "lucide-react";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+import { columns, inArrayFilterFn } from "./columns";
 
-export type RankingEntry = {
-  _id: Id<"rankingEntries">;
-  rank: number;
-  barName: string;
-  city: string;
-  country: string;
-};
+export type { RankingEntry } from "./types";
 
 type DataTableProps = {
   data: RankingEntry[];
@@ -27,30 +31,6 @@ type DataTableProps = {
 
 export function DataTable({ data }: DataTableProps) {
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
-
-  const columns: ColumnDef<RankingEntry>[] = [
-    // rank, barName, city, country
-    {
-      accessorKey: "rank",
-      header: "Rank",
-      cell: (info) => info.getValue(),
-    },
-    {
-      accessorKey: "barName",
-      header: "Bar Name",
-      cell: (info) => info.getValue(),
-    },
-    {
-      accessorKey: "city",
-      header: "City",
-      cell: (info) => info.getValue(),
-    },
-    {
-      accessorKey: "country",
-      header: "Country",
-      cell: (info) => info.getValue(),
-    },
-  ];
 
   const table = useReactTable({
     data,
@@ -60,75 +40,80 @@ export function DataTable({ data }: DataTableProps) {
     },
     onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
-    getFilteredRowModel: getFilteredRowModel(), //client side filtering
+    getFilteredRowModel: getFilteredRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    filterFns: { inArray: inArrayFilterFn },
   });
 
   return (
     <div className="ranking-entries-table flex flex-col gap-4">
-      <div className="filters">
-        <Input
-          type="text"
-          placeholder="Search"
-          value={(table.getColumn("barName")?.getFilterValue() as string) ?? ""}
-          onChange={(e) =>
-            table.getColumn("barName")?.setFilterValue(e.target.value)
-          }
-        />
-      </div>
-      <table>
-        <thead>
+      <RankingEntriesFilters table={table} entries={data} />
+      <Table>
+        <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
+            <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <th key={header.id} colSpan={header.colSpan}>
+                  <TableHead
+                    key={header.id}
+                    colSpan={header.colSpan}
+                    className={cn({
+                      "w-14": header.column.id === "rank",
+                    })}
+                  >
                     {header.isPlaceholder ? null : (
-                      <>
-                        <div
-                          {...{
-                            className: header.column.getCanSort()
-                              ? "cursor-pointer select-none"
-                              : "",
-                            onClick: header.column.getToggleSortingHandler(),
-                          }}
-                        >
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
-                          {{
-                            asc: " 🔼",
-                            desc: " 🔽",
-                          }[header.column.getIsSorted() as string] ?? null}
-                        </div>
-                      </>
+                      <div
+                        className={cn(
+                          "flex items-center gap-2",
+                          header.column.getCanSort()
+                            ? "cursor-pointer select-none"
+                            : "pointer-events-none",
+                          {
+                            "justify-end": header.column.id === "rank",
+                          },
+                        )}
+                        onClick={header.column.getToggleSortingHandler()}
+                      >
+                        {flexRender(
+                          header.column.columnDef.header,
+                          header.getContext(),
+                        )}
+                        {{
+                          asc: <ArrowUpIcon className="size-4" />,
+                          desc: <ArrowDownIcon className="size-4" />,
+                        }[header.column.getIsSorted() as string] ?? null}
+                      </div>
                     )}
-                  </th>
+                  </TableHead>
                 );
               })}
-            </tr>
+            </TableRow>
           ))}
-        </thead>
-        <tbody>
+        </TableHeader>
+        <TableBody>
           {table.getRowModel().rows.map((row) => {
             return (
-              <tr key={row.id}>
+              <TableRow key={row.id}>
                 {row.getVisibleCells().map((cell) => {
                   return (
-                    <td key={cell.id}>
+                    <TableCell
+                      key={cell.id}
+                      className={cn({
+                        "text-center": cell.column.id === "rank",
+                      })}
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext(),
                       )}
-                    </td>
+                    </TableCell>
                   );
                 })}
-              </tr>
+              </TableRow>
             );
           })}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
 }

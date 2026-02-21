@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import { preloadQuery } from "convex/nextjs";
 import { api } from "@/convex/_generated/api";
 import AdminRankings from "./admin-rankings";
+
+export const metadata: Metadata = {
+  title: "Admin Rankings",
+  description: "Manage rankings",
+};
 
 export default async function AdminRankingsPage() {
   const preloadedRankings = await preloadQuery(api.rankings.getRankings);

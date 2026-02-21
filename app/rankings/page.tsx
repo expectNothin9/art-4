@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { RankingsList } from "./rankings-list";
 import { RankingsListSkeleton } from "./rankings-list-skeleton";
+
+export const metadata: Metadata = {
+  title: "Rankings",
+  description: "Browse all rankings",
+};
 
 export default async function RankingsPage() {
   return (

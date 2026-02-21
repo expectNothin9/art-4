@@ -1,8 +1,25 @@
-import { preloadQuery, preloadedQueryResult } from "convex/nextjs";
+import type { Metadata } from "next";
+import { fetchQuery, preloadQuery, preloadedQueryResult } from "convex/nextjs";
 import { notFound } from "next/navigation";
 import { api } from "@/convex/_generated/api";
 import { RankingEntriesTable } from "./ranking-entries-table";
 import { Breadcrumbs } from "./breadcrumbs";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ rankingKey: string }>;
+}): Promise<Metadata> {
+  const { rankingKey } = await params;
+  const ranking = await fetchQuery(api.rankings.getRankingByKey, {
+    key: rankingKey,
+  });
+  if (!ranking) return { title: "Not Found" };
+  return {
+    title: `${ranking.title} (${ranking.year})`,
+    description: `View entries for ${ranking.title}`,
+  };
+}
 
 export default async function RankingByKeyPage({
   params,
